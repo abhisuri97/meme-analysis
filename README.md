@@ -1,6 +1,10 @@
 # Meme analysis 
 
-Just run the ipynb. To generate the scrape, open chrome console on your favorite page and run the following until your chrome runs out of memory (then call `copy(JSON.stringify(getPostAttrs()))`).
+Just run the ipynb. To generate the scrape, open chrome console on your favorite page and run the following until your chrome runs out of memory (or whenever you'd like to stop gathering posts). Then do the following:
+
+1. Type in `clearInterval(intervalID)` to stop scrolling
+2. Then call `copy(JSON.stringify(getPostAttrs()))`)
+3. Lastly, create a file called `posts.json` and put it into the same directory as the ipynb and run :)
 
 ```js
 var scrollToBottom = function() {
@@ -10,16 +14,15 @@ var scrollToBottom = function() {
 var delay = 2000;
 var intervalID = setInterval(scrollToBottom, delay);
 
-function getPostAttrs() { return Array.from(document.getElementsByClassName('_4-u2 mbm _4mrt _5jmm _5pat _5v3q _7cqq _4-u8')).map(i => {
+function getPostAttrs() { 
+	return Array.from(document.getElementsByClassName('_4-u2 mbm _4mrt _5jmm _5pat _5v3q _7cqq _4-u8')).map(i => {
     var obj = { 
-        timestamp: Array.from(i.getElementsByClassName('_5ptz'))[0].getAttribute('data-utime'),
-        authorName: Array.from(i.getElementsByClassName('fwb'))[0].textContent,
+        timestamp: Array.from(i.getElementsByClassName('_5ptz'))[0] ? Array.from(i.getElementsByClassName('_5ptz'))[0].getAttribute('data-utime') : 0,
+        authorName: Array.from(i.getElementsByClassName('fwb'))[0] ? Array.from(i.getElementsByClassName('fwb'))[0].textContent : '',
         id: Array.from(i.getElementsByClassName('_5pcq'))[0] ? Array.from(i.getElementsByClassName('_5pcq'))[0].getAttribute('href').split('/')[4] : undefined,
         likes: Array.from(i.getElementsByClassName('_3dlh _3dli'))[0] ? Array.from(i.getElementsByClassName('_3dlh _3dli'))[0].textContent.match(/\d+([^\s]+)/g) : ["0"]
     }
     if (obj.likes == null) { obj.likes = "9" } else { obj.likes = obj.likes[0] }
     return obj;
-});
-    
-}
+})};
 ```
