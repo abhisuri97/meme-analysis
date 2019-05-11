@@ -1,11 +1,13 @@
 # Meme analysis 
 
-Just run the ipynb. To generate the scrape, open chrome console on your favorite page and run the following until your chrome runs out of memory (or whenever you'd like to stop gathering posts). Then do the following:
+Just run the ipynb. To generate the scrape, open chrome console on your favorite page and run the following until your chrome runs out of memory (or whenever you'd like to stop gathering posts).
+
+DETAILED STEPS
 
 0. Paste the JS snippet at the bottom of this readme into your chrome console. This will start scrolling  your page.
 1. Type in `clearInterval(intervalID)` to stop scrolling (when you have seen enough posts).
 2. Then call `copy(JSON.stringify(getPostAttrs()))`)
-3. Lastly, create a file called `posts.json` and put it into the same directory as the ipynb and run :)
+3. Lastly, create a file called `posts.json` and paste in your data. Then put the file into the same directory as the ipynb and run :)
 
 ```js
 var scrollToBottom = function() {
